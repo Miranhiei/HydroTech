@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "nome": "São Paulo",
+    "estadoSigla": "SP"
+  },
+  {
+    "id": 2,
+    "nome": "Campinas",
+    "estadoSigla": "SP"
+  },
+  {
+    "id": 3,
+    "nome": "Rio de Janeiro",
+    "estadoSigla": "RJ"
+  },
+  {
+    "id": 4,
+    "nome": "Niterói",
+    "estadoSigla": "RJ"
+  },
+  {
+    "id": 5,
+    "nome": "Belo Horizonte",
+    "estadoSigla": "MG"
+  },
+  {
+    "id": 6,
+    "nome": "Uberlândia",
+    "estadoSigla": "MG"
+  }
+]
