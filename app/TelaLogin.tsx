@@ -7,8 +7,10 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Alert,
+  Image,
 } from "react-native";
 import { useRouter } from "expo-router";
+import logo from "../assets/images/LogoHydro.png"; 
 
 export default function TelaLogin() {
   const router = useRouter();
@@ -25,6 +27,8 @@ export default function TelaLogin() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Image source={logo} style={styles.logo} resizeMode="contain" />
+
       <Text style={styles.title}>Bem-vindo ao HydroTech</Text>
 
       <TextInput
@@ -60,6 +64,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 24,
+  },
+  logo: {
+    width: 160,
+    height: 160,
+    marginBottom: 20,
   },
   title: {
     fontSize: 22,
