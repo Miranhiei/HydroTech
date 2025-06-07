@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
+  ScrollView,
   StyleSheet,
   ActivityIndicator,
-  ScrollView,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+
+import estados from "../../assets/dados/estados.json";
+import cidades from "../../assets/dados/cidades.json";
 
 interface Estado {
   id: number;
@@ -20,17 +23,13 @@ interface Cidade {
   estadoSigla: string;
 }
 
-import estados from "../../assets/dados/estados.json";
-import cidades from "../../assets/dados/cidades.json";
-
 export default function MonitoringScreen() {
   const [dadosClimaticos, setDadosClimaticos] = useState<any>(null);
   const [carregando, setCarregando] = useState(false);
 
-  const [estadosAbertos, setEstadosAbertos] = useState(false);
-  const [estadoSelecionado, setEstadoSelecionado] = useState<string | null>(
-    null
-  );
+  const [estadoSelecionado, setEstadoSelecionado] = useState<string | null>(null);
+  const [cidadeSelecionada, setCidadeSelecionada] = useState<string | null>(null);
+
   const [listaEstados, setListaEstados] = useState(
     estados.map((estado: Estado) => ({
       label: estado.nome,
@@ -38,10 +37,6 @@ export default function MonitoringScreen() {
     }))
   );
 
-  const [cidadesAbertas, setCidadesAbertas] = useState(false);
-  const [cidadeSelecionada, setCidadeSelecionada] = useState<string | null>(
-    null
-  );
   const [listaCidades, setListaCidades] = useState<
     { label: string; value: string }[]
   >([]);
@@ -78,61 +73,64 @@ export default function MonitoringScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Text style={styles.header}>🌤️ Monitoramento em Tempo Real</Text>
+      <Text style={styles.header}>🌍 Monitoramento em Tempo Real</Text>
 
-      <Text style={styles.label}>Selecione um Estado:</Text>
-      <Picker
-        selectedValue={estadoSelecionado}
-        onValueChange={(value) => setEstadoSelecionado(value)}
-      >
-        <Picker.Item label="Selecione um estado..." value={null} />
-        {listaEstados.map((estado) => (
-          <Picker.Item
-            key={estado.value}
-            label={estado.label}
-            value={estado.value}
-          />
-        ))}
-      </Picker>
-
-      {estadoSelecionado && (
-        <>
-          <Text style={styles.label}>Selecione uma Cidade:</Text>
+      <View style={styles.box}>
+        <Text style={styles.label}>Estado:</Text>
+        <View style={styles.pickerContainer}>
           <Picker
-            selectedValue={cidadeSelecionada}
-            onValueChange={(value) => setCidadeSelecionada(value)}
+            selectedValue={estadoSelecionado}
+            onValueChange={(value) => setEstadoSelecionado(value)}
+            style={styles.picker}
           >
-            <Picker.Item label="Selecione uma cidade..." value={null} />
-            {listaCidades.map((cidade) => (
+            <Picker.Item label="Selecione um estado..." value={null} />
+            {listaEstados.map((estado) => (
               <Picker.Item
-                key={cidade.value}
-                label={cidade.label}
-                value={cidade.value}
+                key={estado.value}
+                label={estado.label}
+                value={estado.value}
               />
             ))}
           </Picker>
-        </>
+        </View>
+      </View>
+
+      {estadoSelecionado && (
+        <View style={styles.box}>
+          <Text style={styles.label}>Cidade:</Text>
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={cidadeSelecionada}
+              onValueChange={(value) => setCidadeSelecionada(value)}
+              style={styles.picker}
+            >
+              <Picker.Item label="Selecione uma cidade..." value={null} />
+              {listaCidades.map((cidade) => (
+                <Picker.Item
+                  key={cidade.value}
+                  label={cidade.label}
+                  value={cidade.value}
+                />
+              ))}
+            </Picker>
+          </View>
+        </View>
       )}
 
       {carregando && (
-        <ActivityIndicator
-          size="large"
-          color="#003366"
-          style={{ marginTop: 20 }}
-        />
+        <ActivityIndicator size="large" color="#2b6cb0" style={{ marginTop: 20 }} />
       )}
 
       {dadosClimaticos && (
         <View style={styles.card}>
           <Text style={styles.cardTitle}>
-            📍 Local: {dadosClimaticos.location.name},{" "}
-            {dadosClimaticos.location.region}
+            📍 {dadosClimaticos.location.name}, {dadosClimaticos.location.region}
           </Text>
-          <Text>🌡️ Temperatura: {dadosClimaticos.current.temp_c}°C</Text>
-          <Text>💧 Umidade: {dadosClimaticos.current.humidity}%</Text>
-          <Text>🌧️ Precipitação: {dadosClimaticos.current.precip_mm} mm</Text>
-          <Text>💨 Vento: {dadosClimaticos.current.wind_kph} km/h</Text>
-          <Text>📝 Condição: {dadosClimaticos.current.condition.text}</Text>
+          <Text style={styles.data}>🌡️ Temperatura: {dadosClimaticos.current.temp_c}°C</Text>
+          <Text style={styles.data}>💧 Umidade: {dadosClimaticos.current.humidity}%</Text>
+          <Text style={styles.data}>🌧️ Precipitação: {dadosClimaticos.current.precip_mm} mm</Text>
+          <Text style={styles.data}>💨 Vento: {dadosClimaticos.current.wind_kph} km/h</Text>
+          <Text style={styles.data}>📝 Condição: {dadosClimaticos.current.condition.text}</Text>
         </View>
       )}
     </ScrollView>
@@ -141,35 +139,69 @@ export default function MonitoringScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#eaf2fb",
+    backgroundColor: "#f0f4f8",
     flex: 1,
   },
   content: {
     padding: 20,
-    gap: 12,
+    gap: 16,
   },
   header: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "bold",
-    color: "#003366",
-    marginBottom: 10,
+    color: "#2b6cb0",
+    marginBottom: 20,
     textAlign: "center",
   },
   label: {
     fontSize: 14,
-    color: "#444",
-    marginTop: 8,
+    fontWeight: "600",
+    marginBottom: 6,
+    color: "#2d3748",
+  },
+  box: {
+    backgroundColor: "#ffffff",
+    padding: 14,
+    borderRadius: 12,
+    elevation: 3,
+    shadowColor: "#ccc",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    marginBottom: 12,
+  },
+  pickerContainer: {
+    borderWidth: 1,
+    borderColor: "#cbd5e0",
+    borderRadius: 8,
+    overflow: "hidden",
+    backgroundColor: "#f7fafc",
+  },
+  picker: {
+    height: 48,
+    width: "100%",
+    color: "#2d3748",
   },
   card: {
-    backgroundColor: "#fff",
-    padding: 16,
-    borderRadius: 10,
-    elevation: 2,
+    backgroundColor: "#ffffff",
+    padding: 18,
+    borderRadius: 14,
+    elevation: 4,
+    shadowColor: "#999",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
     marginTop: 12,
   },
   cardTitle: {
     fontWeight: "bold",
-    fontSize: 16,
-    marginBottom: 8,
+    fontSize: 18,
+    color: "#2b6cb0",
+    marginBottom: 10,
+  },
+  data: {
+    fontSize: 14,
+    marginVertical: 2,
+    color: "#4a5568",
   },
 });
