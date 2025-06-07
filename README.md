@@ -1,50 +1,79 @@
-# Welcome to your Expo app 👋
+# 🌊 SafeHydro
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+### 👨‍💻 Desenvolvido por: Amaury Tenório Niza (RM: 559108) | Mateus Miranda (RM: 559215)
 
-## Get started
+---
 
-1. Install dependencies
+## 📱 Aplicativo Mobile com Monitoramento em Tempo Real
 
-   ```bash
-   npm install
-   ```
+**Disciplina:** *Advanced Programming and Mobile DEV*  
+**Objetivo:** Criar um app mobile que funcione como um **sistema inteligente de detecção, alerta e contenção de enchentes**, utilizando sensores, APIs e visualizações intuitivas para proteger vidas em áreas urbanas.
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## ✨ Visão Geral
 
-In the output, you'll find options to open the app in a
+O **SafeHydro** é mais do que um aplicativo — é um **guardião digital** contra enchentes. Com uma interface moderna, dados ao vivo e alertas inteligentes, ele ajuda comunidades a reagirem rapidamente frente a situações críticas.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Totalmente integrado com um backend Spring Boot, o app consome APIs que fornecem **nível de água em tempo real**, **histórico de enchentes**, e **ações automatizadas de controle**.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## 🔐 Autenticação
 
-When you're ready, run:
+Logo no início, o usuário realiza um **login seguro**, garantindo que apenas usuários autorizados possam acessar e controlar as informações sensíveis do sistema.
 
-```bash
-npm run reset-project
-```
+---
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🚀 Funcionalidades do Aplicativo
 
-## Learn more
+O app conta com 5 telas principais e totalmente funcionais:
 
-To learn more about developing your project with Expo, look at the following resources:
+1. **👋 Tela de Boas-vindas**  
+   - Apresenta o projeto e direciona o usuário para login ou início rápido.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+2. **📡 Tela de Monitoramento**  
+   - Mostra o nível de água em tempo real, integrado com sensores via **API REST**.
 
-## Join the community
+3. **🚨 Tela de Alertas**  
+   - Emite notificações automáticas em caso de risco iminente de enchente.
 
-Join our community of developers creating universal apps.
+4. **🛠 Tela de Ação e Controle**  
+   - Simula ações de contenção como barreiras, válvulas ou drenagem.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+5. **📊 Tela de Histórico**  
+   - Exibe registros detalhados das medições e alertas anteriores.
+
+---
+
+## 🧑‍💻 Tecnologias Utilizadas
+
+- **React Native** + **Expo**
+- **React Navigation** para navegação entre telas
+- **Context API** para autenticação
+- **Spring Boot (Java)** no backend
+  - API RESTful com endpoints para sensores, alertas e controle
+  - Banco H2 com persistência simulada
+
+---
+
+## 🔄 Integração com APIs
+
+O SafeHydro se conecta com um backend Java que disponibiliza:
+
+- 🔄 Nível de água em tempo real via sensores simulados
+- ⚠️ Alertas automáticos
+- 📚 Histórico completo de eventos
+- ✅ Login com autenticação básica (via token ou sessão)
+- 🔧 Simulação de ações de contenção
+
+---
+
+## 🧪 Como Executar o Projeto
+
+### ✅ Requisitos
+
+- Node.js (recomendado: versão LTS)
+- Expo CLI instalado globalmente:
+  ```bash
+  npm install -g expo-cli
